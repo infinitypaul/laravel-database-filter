@@ -39,7 +39,7 @@ abstract class FiltersAbstract
 
     protected function filterFilters($filters)
     {
-        return array_filter($this->request->only(array_keys($this->filters)));
+        return array_filter($this->request->only(array_keys($filters)));
     }
 
     protected function resolveFilter($filter)
