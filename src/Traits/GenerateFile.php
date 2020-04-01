@@ -118,7 +118,6 @@ trait GenerateFile
             array_pop($namespace);
         }
         $namespace = '\\'.implode('\\', $namespace);
-        //dd($namespace);
         //$stub = str_replace('{{namespace}}', $namespace, $stub);
         return $this;
     }
