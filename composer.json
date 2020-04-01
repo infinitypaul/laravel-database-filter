@@ -4,7 +4,8 @@
     "keywords": [
         "infinitypaul",
         "laravel-database-filter",
-        "php filter"
+        "php filter",
+        "model filter"
     ],
     "homepage": "https://github.com/infinitypaul/laravel-database-filter",
     "license": "MIT",
