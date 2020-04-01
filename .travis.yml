@@ -1,0 +1,47 @@
+language: php
+
+php:
+    - 7.1
+    - 7.2
+    - 7.3
+
+env:
+    global:
+        - COVERAGE=no
+    matrix:
+        - LARAVEL=5.5.*
+        - LARAVEL=5.6.*
+        - LARAVEL=5.7.*
+        - LARAVEL=5.8.*
+
+matrix:
+    include:
+        - php: 7.1
+          env: LARAVEL=5.5.* COVERAGE=yes
+        - php: 7.1
+          env: LARAVEL=5.6.* COVERAGE=yes
+        - php: 7.1
+          env: LARAVEL=5.7.* COVERAGE=yes
+        - php: 7.1
+          env: LARAVEL=5.8.* COVERAGE=yes
+        - php: 7.2
+          env: LARAVEL=6.8.* COVERAGE=yes
+        - php: 7.2
+          env: LARAVEL=7.0.* COVERAGE=yes
+    fast_finish: true
+
+before_install:
+    - travis_retry composer self-update
+
+before_script:
+    - composer require "laravel/framework=${LARAVEL}" --dev --prefer-dist --no-interaction --no-suggest
+
+script:
+    - if [[ $COVERAGE = 'yes' ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi
+    - if [[ $COVERAGE = 'no' ]]; then vendor/bin/phpunit; fi
+
+before_install:
+    - pip install --user codecov
+
+after_success:
+    - if [[ $COVERAGE = 'yes' ]]; then codecov; fi

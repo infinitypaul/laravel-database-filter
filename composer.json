@@ -1,0 +1,52 @@
+{
+    "name": "infinitypaul/laravel-database-filter",
+    "description": "Need to filter database results with a query string? Here's a beautiful, easy to extend laravel package to keep your code super tidy.",
+    "keywords": [
+        "infinitypaul",
+        "laravel-database-filter",
+        "php filter"
+    ],
+    "homepage": "https://github.com/infinitypaul/laravel-database-filter",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Paul Edward",
+            "email": "infinitypaul@live.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.5|~6.5|^7.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Infinitypaul\\LaravelDatabaseFilter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Infinitypaul\\LaravelDatabaseFilter\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Infinitypaul\\LaravelDatabaseFilter\\LaravelDatabaseFilterServiceProvider"
+            ]
+        }
+    }
+}

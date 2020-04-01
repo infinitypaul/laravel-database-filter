@@ -1,0 +1,9 @@
+<?php
+
+namespace App\Filters;
+
+use Infinitypaul\LaravelDatabaseFilter\Abstracts\FiltersAbstract;
+
+class {{class}} extends FiltersAbstract {
+        protected $filters = [];
+}
