@@ -8,14 +8,13 @@ use Infinitypaul\LaravelDatabaseFilter\Traits\GenerateFile;
 
 class CreateNewFilter extends Command
 {
-    use GenerateFile ;
+    use GenerateFile;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'make:filter {name} {--model}';
-
 
     /**
      * The console command description.
@@ -30,7 +29,6 @@ class CreateNewFilter extends Command
 
     private $composer;
 
-
     /**
      * Create a new command instance.
      *
@@ -42,7 +40,6 @@ class CreateNewFilter extends Command
         $this->files = $filesystem;
         $this->composer = app()['composer'];
     }
-
 
     /**
      * Execute the console command.
@@ -61,9 +58,8 @@ class CreateNewFilter extends Command
      */
     protected function getModelStub()
     {
-        return __DIR__ . '/../stubs/model-filter.stub';
+        return __DIR__.'/../stubs/model-filter.stub';
     }
-
 
     /**
      * Get the stub file for the generator.
@@ -74,6 +70,4 @@ class CreateNewFilter extends Command
     {
         return __DIR__.'/../stubs/filter.stub';
     }
-
-
 }
