@@ -18,7 +18,7 @@ composer require infinitypaul/laravel-database-filter
 The package will automatically register itself, but if your laravel versions is < 5.5 you will need to add Infinitypaul\LaravelDatabaseFilter\LaravelDatabaseFilterServiceProvider::class, service provider under your config/app.php file.
 
 ## Usage
-Once the package is installed, an  artisan commands is available to you.
+Once the package is installed, an artisan command is available to you.
 
 ```bash
 php artisan make:filter 
@@ -28,7 +28,7 @@ Generate a new model filter
 ```bash
 php artisan make:filter SchoolFilter --model
 ``` 
-This will generate a new php file under app/Filters/ folder with the name SchoolFilter.php which will look like below.
+This package will generate a new PHP file under app/Filters/ folder with the name SchoolFilter.php which will look like below.
 
 ``` php
 <?php
@@ -42,7 +42,7 @@ class SchoolFilter extends FiltersAbstract {
 }
 
 ```
-Add The filterTrait and Register The SchoolFilter On Your Laravel Model Where The Filter Will Be User
+Add The filterTrait and Register The SchoolFilter On Your Laravel Model Where The Filter Will Be Used.
 ```php
 
 
@@ -60,16 +60,14 @@ class Course extends Model
 
 }
 ```
-On the $filters variable in the SchoolFilter we can register all the conditions we are to filter against.
 
-
-Let assume we want to filter our database by check those who have paid, then we need to create a new filter class by using the artisan command below
+Let assume we are to filter our database by checking those who have paid. Then we need to create a new filter class by using the artisan command below.
 
 ```bash
 php artisan make:filter PaidFilter
 ``` 
 
-This will also generate a new php file under app/Filters/ folder with the name PaidFilter.php which will look like below.
+The above command will also generate a new PHP file under app/Filters folder with the name PaidFilter.php which will look like below.
 
 ```php
 
@@ -96,7 +94,7 @@ class PaidFilter extends FilterAbstract
 
 
 ```
-Then we are register our conditions in the SchoolFilter We Created Above,
+Then we can register our filter conditions in the SchoolFilter We Created Above.
 
 ```php
 
@@ -111,13 +109,13 @@ class SchoolFilter extends FiltersAbstract {
 }
 ```
 
-The Filter Array Key is What we be shown as the query string as paid
+The $filters Array Key will be shown in the query string as paid.
 
 ```
     http://localhost:8080/education?paid=free
 ```
 
-while the value PaidFilter::class takes us to the new class we created where we can write our conditions
+The value PaidFilter::class takes us to the new class we created with the artisan command.
 
 ```php
 
@@ -144,9 +142,9 @@ class PaidFilter extends FilterAbstract
 
 ```
 
-The Filter Method Takes In Our Condition or whatever we want to check against the database
+The filter method takes in our conditions or whatever  checks against the database
 
-In Case You Want To Be Strict About What A User Enters Into The Query Params You Can Use The Mapping Method
+To be strict about query params input, we can use the mapping method or leave empty for free entry
 
 ```php
 
@@ -169,9 +167,9 @@ class PaidFilter extends FilterAbstract
 
 ```
 
-With The Above Config, You Can Only Accept free or paid from the user Into Your Paid Params And They Will Return Their Values Accordingly
+With the above setup, You can only accept free or paid in your query params, and their values return accordingly.
 
-Lastly You should be able to add the filter() scope to your model in your controller
+Lastly, You should be able to add the filter() passing in your $request in your controller.
 
 ```php
 namespace App\Http\Controllers;
@@ -209,7 +207,7 @@ class SchoolFilter extends FiltersAbstract {
 With The Above Settings, Your Url Will End Up Like This
 
 ```
-    http://localhost:8080/education?paid=free&access=whatever&difficulty=whoever
+    http://infinitypaul.com/education?paid=free&access=whatever&difficulty=whoever
 ```
 
 You can add custom filter to your controller, by passing an array of filter into the filter scope
