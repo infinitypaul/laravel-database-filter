@@ -5,7 +5,11 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/infinitypaul/laravel-database-filter.svg?style=flat-square)](https://scrutinizer-ci.com/g/infinitypaul/laravel-database-filter)
 [![Total Downloads](https://img.shields.io/packagist/dt/infinitypaul/laravel-database-filter.svg?style=flat-square)](https://packagist.org/packages/infinitypaul/laravel-database-filter)
 
-Need to filter database results with a query string? Filter Laravel Model With Query Strings
+  Ever been stuck with filtering a database table with lots of GET parameters?  I can only imagine how bulky your code will be. Relax, the easiest solution to this problem is right here.     Let's say we have to query our records table with the following get parameters
+  
+  >https://www.example.com/records?dept=csc&level=200&grade=A
+  
+  
 
 ## Installation
 
@@ -23,12 +27,26 @@ Once the package is installed, an artisan command is available to you.
 ```bash
 php artisan make:filter 
 ```
+We would be working with the records table below:
 
-Generate a new model filter 
+| Id  | Department | Level | Score | Grade|
+| --- | -----------| ------| ------| -----|
+| 1   | csc        | 200  | 68    | b     |
+| 2   | physics    | 100  | 90    | a     |
+| 3   | csc        | 100  | 90    | a     |
+| 4   | physics    | 200  | 60    | b     |
+| 5   | csc        | 200  | 80    | a     |
+
+ The Filtering be done in 6 simple steps. Perfect right! Let's begin:
+
+### * Step 1
+
+Create a mother filter class, this is where all filters will be recorded. This can be created with this one line of code: 
+
 ```bash
-php artisan make:filter SchoolFilter --model
+php artisan make:filter RecordFilter --model
 ``` 
-This package will generate a new PHP file under app/Filters/ folder with the name SchoolFilter.php which will look like below.
+ This package will generate a new PHP file RecordFilter.php under app/Filters folder. This is where all other filters will be created.. It wil look like this
 
 ``` php
 <?php
@@ -37,18 +55,23 @@ namespace App\Filters;
 
 use Infinitypaul\LaravelDatabaseFilter\Abstracts\FiltersAbstract;
 
-class SchoolFilter extends FiltersAbstract {
+class RecordFilter extends FiltersAbstract {
         protected $filters = [];
 }
 
 ```
-Add The filterTrait and Register The SchoolFilter On Your Laravel Model Where The Filter Will Be Used.
+### * Step 2:
+
+Since we are working with the records table, we will be working on the Record model. So open your Record model and include the following:
+    * The Filter Trait
+    * The Record Filter Class
+
 ```php
 
 
 namespace App;
 
-use App\Filters\SchoolFilter;
+use App\Filters\RecordFilter;
 use Infinitypaul\LaravelDatabaseFilter\Traits\filterTrait;
 
 
@@ -56,18 +79,24 @@ class Course extends Model
 {
     use filterTrait;
 
-    protected $filter = SchoolFilter::class;
+    protected $filter = RecordFilter::class; //mother filter class
 
 }
 ```
 
-Let assume we are to filter our database by checking those who have paid. Then we need to create a new filter class by using the artisan command below.
+### * Step 3:
+
+We would be filtering with 3 parameters (dept, level, grade):
+
+Let's create filter classes for each filter
 
 ```bash
-php artisan make:filter PaidFilter
+php artisan make:filter DeptFilter
+php artisan make:filter LevelFilter
+php artisan make:filter GradeFilter
 ``` 
 
-The above command will also generate a new PHP file under app/Filters folder with the name PaidFilter.php which will look like below.
+The above commands will also generate a new PHP file under app/Filters folder with the name DebtFilter.php, LevelFilter.php and GradeFilter.php which will look like below.
 
 ```php
 
@@ -77,7 +106,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
 
-class PaidFilter extends FilterAbstract
+class DebtFilter extends FilterAbstract
 {
     
         public function mappings ()
@@ -94,127 +123,200 @@ class PaidFilter extends FilterAbstract
 
 
 ```
-Then we can register our filter conditions in the SchoolFilter We Created Above.
+
+ Well Done!!! Let's move to the next step
+ 
+### * Step 4:
+
+Now we write our logic in each class:
+
+In our DeptFilter class, we write the following:
 
 ```php
 
-namespace App\Filters;
+  namespace App\Filters;
 
-use Infinitypaul\LaravelDatabaseFilter\Abstracts\FiltersAbstract;
+            use Illuminate\Database\Eloquent\Builder;
 
-class SchoolFilter extends FiltersAbstract {
-        protected $filters = [
-            'paid' => PaidFilter::class
-        ];
-}
+            use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
+
+            class DeptFilter extends FilterAbstract
+            {
+
+                    public function mappings ()
+                    {
+                        return [];
+                    }
+
+                    public function filter(Builder $builder, $value)
+                    {
+                        return $builder->where('dept', $value);
+                    }
+            }
 ```
 
-The $filters Array Key will be shown in the query string as paid.
-
-```
-    http://localhost:8080/education?paid=free
-```
-
-The value PaidFilter::class takes us to the new class we created with the artisan command.
+In our LevelFilter class, we write the following:
 
 ```php
 
-namespace App\Filters;
+            namespace App\Filters;
 
-use Illuminate\Database\Eloquent\Builder;
+            use Illuminate\Database\Eloquent\Builder;
 
-use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
+            use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
 
-class PaidFilter extends FilterAbstract
-{
-    
-        public function mappings ()
-        {
-            return [];
-        }
+            class LevelFilter extends FilterAbstract
+            {
 
-       
-        public function filter(Builder $builder, $value)
-        {
-            return $builder->where('difficulty', $value);
-        }
-}
+                    public function mappings ()
+                    {
+                        return [];
+                    }
+
+                    public function filter(Builder $builder, $value)
+                    {
+                        return $builder->where('level', $value);
+                    }
+            }
+
+```
+
+In our GradeFilter class, we write the following:
+
+```php
+
+            namespace App\Filters;
+
+            use Illuminate\Database\Eloquent\Builder;
+
+            use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
+
+            class GradeFilter extends FilterAbstract
+            {
+
+                    public function mappings ()
+                    {
+                        return [];
+                    }
+
+                    public function filter(Builder $builder, $value)
+                    {
+                        return $builder->where('grade', $value);
+                    }
+            }
 
 ```
 
 The filter method takes in our conditions or whatever  checks against the database
 
-To be strict about query params input, we can use the mapping method or leave empty for free entry
+ Bravo on completing that. Moving on!!!
+ 
+ 
+### * Step 5:
+ 
+ We write our search parameters against the filter class. Let's open up our mother filter class - RecordFilter to register all the conditions we have generated. 
+ 
+ ```php
+ 
+             namespace App\Filters;
+ 
+             use Infinitypaul\LaravelDatabaseFilter\Abstracts\FiltersAbstract;
+ 
+             class RecordFilter extends FiltersAbstract {
+                     protected $filters = [
+                         'dept' => DeptFilter::class,
+                         'level' => LevelFilter::class,
+                         'grade' => GradeFilter::class
+                     ];
+             }
+ 
+ ```
+
+The $Filter array key is will be the query params.
+
+### * Step 6:
+
+Assuming we have a controller RecordController, we can create a function to get our record:
 
 ```php
 
-namespace App\Filters;
-
-use Illuminate\Database\Eloquent\Builder;
-
-use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
-
-class PaidFilter extends FilterAbstract
-{
-    
-        public function mappings ()
-        {
-            return [
-                'free' => true,
-                'premium' => false
-            ];
-        }
-
-```
-
-With the above setup, You can only accept free or paid in your query params, and their values return accordingly.
-
-Lastly, You should be able to add the filter() passing in your $request in your controller.
-
-```php
 namespace App\Http\Controllers;
 
 use App\Course;
 use App\Filters\AccessFilter;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class RecordController extends Controller
 {
     public function index(Request $request){
-        return Course::filter($request)->get();
+        return Record::filter($request)->get();
     }
 }
+
 ```
-You Can Register As Many Filter You Want
+
+We are all done!!!
+
+When we enter the following into our browser
+
+> https://www.example.com/records?dept=csc&level=200&grade=a
+
+We will get the following result:
+
+```
+
+            {
+                "data": [
+                    {
+                        "id": 5,
+                        "department": "csc",
+                        "level": 200,
+                        "score": "80",
+                        "grade": "a"
+                    }
+                ]
+            }
+
+```
+### Tweak Time
+
+To be strict about query params input, we can use the mapping method or leave empty for free entry.
+
+Let's say when returning the data, we want all department with csc to return as CSC. We return values to the mappings function in the DeptFilter class as shown below:
 
 ```php
-<?php
 
 namespace App\Filters;
 
-use Infinitypaul\LaravelDatabaseFilter\Abstracts\FiltersAbstract;
+use Illuminate\Database\Eloquent\Builder;
 
-class SchoolFilter extends FiltersAbstract {
-        protected $filters = [
-            'paid' => PaidFilter::class,
-            'access' => AccessFilter::class,
-            'difficulty' => DifficultyFilter::class
-        ];
-}
+use Infinitypaul\LaravelDatabaseFilter\Abstracts\FilterAbstract;
+
+class DeptFilter extends FilterAbstract
+{
+    
+        public function mappings ()
+        {
+            return [
+                'csc' => 'CSC'
+            ];
+        }
+
+public function filter(Builder $builder, $value)
+                    {
+                        return $builder->where('dept', $value);
+                    }
 
 ```
 
-With The Above Settings, Your Url Will End Up Like This
+With the above setup, once csc is entered in your query params, it will return CSC as value.
 
-```
-    http://infinitypaul.com/education?paid=free&access=whatever&difficulty=whoever
-```
+Lastly, You can add local scoped filter() by passing an array of filter into the filter scope.
 
-You can add custom filter to your controller, by passing an array of filter into the filter scope
 
 ```php
   public function index(Request $request){
-        return Course::filter($request, ['score' => DifficultyFilter::class])->get();
+        return Record::filter($request, ['score' => DifficultyFilter::class])->get();
     }
 ```
 
