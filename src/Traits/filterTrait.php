@@ -12,7 +12,16 @@ trait filterTrait
         if (empty($this->filter)) {
             throw new Exception('protected $filter Not Found In '.get_class($this));
         }
+        $filters = is_array($this->filter) ? $this->filter : [$this->filter];
 
-        return (new $this->filter($request))->add($filters)->filter($builder);
+
+        foreach ($filters as $filter){
+            return (new $filter($request))->add($filters)->filter($builder);
+        }
+
     }
+
+
+
+
 }
