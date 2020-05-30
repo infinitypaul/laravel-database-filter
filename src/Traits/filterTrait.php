@@ -14,14 +14,8 @@ trait filterTrait
         }
         $filters = is_array($this->filter) ? $this->filter : [$this->filter];
 
-
-        foreach ($filters as $filter){
+        foreach ($filters as $filter) {
             return (new $filter($request))->add($filters)->filter($builder);
         }
-
     }
-
-
-
-
 }
