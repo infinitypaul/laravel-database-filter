@@ -23,6 +23,7 @@ trait filterTrait
         if (empty($this->filter)) {
             throw new Exception('protected $filter Not Found In '.get_class($this));
         }
+
         if(empty($filterClass)){
             return (new $this->filter($request))->add($filters)->filter($builder);
         }
