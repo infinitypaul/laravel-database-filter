@@ -320,6 +320,16 @@ Lastly, You can add local scoped filter() by passing an array of filter into the
     }
 ```
 
+You can also override your filter property from your controller in this manner
+
+```php
+  public function course(Request $request){
+        return Record::filter($request, PaulFilter::class, ['score' => DifficultyFilter::class])->get();
+    }
+```
+
+So instead of your filter to use the RecordFilter it will make use of PaulFilter
+
 
 
 ### Bug & Features
