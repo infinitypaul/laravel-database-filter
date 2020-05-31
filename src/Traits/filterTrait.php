@@ -18,15 +18,16 @@ trait filterTrait
      *
      * @method static mixed filter($request, string $filterClass='', array $filters)
      */
-    public function scopeFilter(Builder $builder, $request,  $filterClass='', array $filters = [])
+    public function scopeFilter(Builder $builder, $request, $filterClass = '', array $filters = [])
     {
         if (empty($this->filter)) {
             throw new Exception('protected $filter Not Found In '.get_class($this));
         }
 
-        if(empty($filterClass)){
+        if (empty($filterClass)) {
             return (new $this->filter($request))->add($filters)->filter($builder);
         }
-            return (new $filterClass($request))->add($filters)->filter($builder);
+
+        return (new $filterClass($request))->add($filters)->filter($builder);
     }
 }
