@@ -22,6 +22,12 @@ abstract class FilterAbstract
         return [];
     }
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param $key
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|mixed
+     */
     public function resolveFilterValue(Builder $builder, $key)
     {
         if (class_exists(Arr::class)) {

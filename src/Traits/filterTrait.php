@@ -7,15 +7,25 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait filterTrait
 {
-    public function scopeFilter(Builder $builder, $request, array $filters = [])
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param $request
+     * @param \Infinitypaul\LaravelDatabaseFilter\Traits\string|string $filterClass
+     * @param array $filters
+     *
+     * @return mixed
+     * @throws \Exception
+     *
+     * @method static mixed filter($request, string $filterClass='', array $filters)
+     */
+    public function scopeFilter(Builder $builder, $request,  $filterClass='', array $filters = [])
     {
         if (empty($this->filter)) {
             throw new Exception('protected $filter Not Found In '.get_class($this));
         }
-        $filterClass = is_array($this->filter) ? $this->filter : [$this->filter];
-
-        foreach ($filterClass as $filter){
-            return (new $filter($request))->add($filters)->filter($builder);
+        if(empty($filterClass)){
+            return (new $this->filter($request))->add($filters)->filter($builder);
         }
+            return (new $filterClass($request))->add($filters)->filter($builder);
     }
 }
