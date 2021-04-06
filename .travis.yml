@@ -1,29 +1,26 @@
 language: php
 
 php:
-    - 7.1
-    - 7.2
     - 7.3
 
 env:
     global:
         - COVERAGE=no
     matrix:
-        - LARAVEL=5.5.*
-        - LARAVEL=5.6.*
-        - LARAVEL=5.7.*
-        - LARAVEL=5.8.*
+        - LARAVEL=6.8.*
+        - LARAVEL=7.0.*
+        - LARAVEL=8.0.*
 
 matrix:
     include:
-        - php: 7.1
-          env: LARAVEL=5.5.* COVERAGE=yes
-        - php: 7.1
-          env: LARAVEL=5.6.* COVERAGE=yes
-        - php: 7.1
-          env: LARAVEL=5.7.* COVERAGE=yes
-        - php: 7.1
-          env: LARAVEL=5.8.* COVERAGE=yes
+        - php: 7.2
+          env: LARAVEL=6.19.* COVERAGE=yes
+        - php: 7.2
+          env: LARAVEL=7.30.* COVERAGE=yes
+        - php: 7.3
+          env: LARAVEL=8.5.* COVERAGE=yes
+        - php: 7.3
+          env: LARAVEL=8.0.* COVERAGE=yes
         - php: 7.2
           env: LARAVEL=6.8.* COVERAGE=yes
         - php: 7.2
