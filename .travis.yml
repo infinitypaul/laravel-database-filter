@@ -25,6 +25,8 @@ matrix:
           env: LARAVEL=6.8.* COVERAGE=yes
         - php: 7.2
           env: LARAVEL=7.0.* COVERAGE=yes
+        - php: 8.0
+          env: LARAVEL=8.0.* COVERAGE=yes
     fast_finish: true
 
 before_install:
