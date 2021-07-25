@@ -31,6 +31,7 @@ matrix:
 
 before_install:
     - travis_retry composer self-update
+    - pip install --user codecov
 
 before_script:
     - composer require "laravel/framework=${LARAVEL}" --dev --prefer-dist --no-interaction --no-suggest
@@ -38,9 +39,6 @@ before_script:
 script:
     - if [[ $COVERAGE = 'yes' ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi
     - if [[ $COVERAGE = 'no' ]]; then vendor/bin/phpunit; fi
-
-before_install:
-    - pip install --user codecov
 
 after_success:
     - if [[ $COVERAGE = 'yes' ]]; then codecov; fi
