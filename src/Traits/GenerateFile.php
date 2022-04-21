@@ -9,7 +9,7 @@ trait GenerateFile
     /**
      * Get the path to where we should store the migration.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return string
      */
     protected function getPath($name)
@@ -20,7 +20,7 @@ trait GenerateFile
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string $path
+     * @param  string  $path
      * @return string
      */
     protected function makeDirectory($path)
@@ -69,9 +69,8 @@ trait GenerateFile
     /**
      * Replace the class name in the stub.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @param $name
-     *
      * @return $this
      */
     protected function replaceClassName(&$stub, $name)
@@ -87,7 +86,7 @@ trait GenerateFile
      * Splits the string into array based on
      * slash or backslash.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return array
      */
     private function splitNamespace($name)
@@ -107,7 +106,6 @@ trait GenerateFile
     /**
      * @param $stub
      * @param $name
-     *
      * @return $this
      */
     protected function replaceNamespace(&$stub, $name)

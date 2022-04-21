@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Builder;
 trait filterTrait
 {
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @param $request
-     * @param \Infinitypaul\LaravelDatabaseFilter\Traits\string|string $filterClass
-     * @param array $filters
-     *
+     * @param  \Infinitypaul\LaravelDatabaseFilter\Traits\string|string  $filterClass
+     * @param  array  $filters
      * @return mixed
+     *
      * @throws \Exception
      *
      * @method static mixed filter($request, string $filterClass='', array $filters)

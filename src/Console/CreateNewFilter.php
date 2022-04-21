@@ -32,7 +32,7 @@ class CreateNewFilter extends Command
     /**
      * Create a new command instance.
      *
-     * @param \Illuminate\Filesystem\Filesystem $filesystem
+     * @param  \Illuminate\Filesystem\Filesystem  $filesystem
      */
     public function __construct(Filesystem $filesystem)
     {
