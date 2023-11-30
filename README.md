@@ -249,7 +249,7 @@ use Illuminate\Http\Request;
 class RecordController extends Controller
 {
     public function index(Request $request){
-        return Record::filter($request)->get();
+        return Course::filter($request)->get();
     }
 }
 
