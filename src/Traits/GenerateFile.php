@@ -70,7 +70,7 @@ trait GenerateFile
      * Replace the class name in the stub.
      *
      * @param  string  $stub
-     * @param $name
+     * @param  $name
      * @return $this
      */
     protected function replaceClassName(&$stub, $name)
@@ -104,8 +104,8 @@ trait GenerateFile
     }
 
     /**
-     * @param $stub
-     * @param $name
+     * @param  $stub
+     * @param  $name
      * @return $this
      */
     protected function replaceNamespace(&$stub, $name)
