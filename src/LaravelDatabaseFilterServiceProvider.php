@@ -13,8 +13,7 @@ class LaravelDatabaseFilterServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-
-             // Registering package commands.
+            // Registering package commands.
             $this->commands([
                 CreateNewFilter::class,
             ]);

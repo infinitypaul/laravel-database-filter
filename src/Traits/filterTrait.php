@@ -9,7 +9,7 @@ trait filterTrait
 {
     /**
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param $request
+     * @param  $request
      * @param  \Infinitypaul\LaravelDatabaseFilter\Traits\string|string  $filterClass
      * @param  array  $filters
      * @return mixed

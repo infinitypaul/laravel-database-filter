@@ -11,7 +11,7 @@ abstract class FilterAbstract
      * Filter Column.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param $value
+     * @param  $value
      * @return mixed
      */
     abstract public function filter(Builder $builder, $value);
@@ -23,7 +23,7 @@ abstract class FilterAbstract
 
     /**
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param $key
+     * @param  $key
      * @return \Illuminate\Database\Eloquent\Builder|mixed
      */
     public function resolveFilterValue(Builder $builder, $key)
