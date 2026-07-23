@@ -40,8 +40,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Packagist may block older Laravel minors with security advisories during
+          # matrix installs; we still want compatibility coverage for those lines.
+          composer config audit.block-insecure false
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-audit
 
       - name: Execute tests
         run: vendor/bin/phpunit

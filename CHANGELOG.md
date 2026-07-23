@@ -12,6 +12,7 @@ All notable changes to `laravel-database-filter` will be documented in this file
 - Raised minimum PHP to `^8.2`
 - Narrowed supported Illuminate range to Laravel 10+ (`^10|^11|^12|^13`) for maintainable CI
 - Bumped `orchestra/testbench` / `phpunit` constraints for modern Laravel versions
+- CI disables Composer `audit.block-insecure` so Laravel 10/11 matrix jobs can still install when Packagist flags historical advisories
 
 ## 5.0.0 - 2025-06-23
 
