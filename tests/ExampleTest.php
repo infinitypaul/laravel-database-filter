@@ -4,6 +4,7 @@ namespace Infinitypaul\LaravelDatabaseFilter\Tests;
 
 use Infinitypaul\LaravelDatabaseFilter\LaravelDatabaseFilterServiceProvider;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ExampleTest extends TestCase
 {
@@ -12,8 +13,8 @@ class ExampleTest extends TestCase
         return [LaravelDatabaseFilterServiceProvider::class];
     }
 
-    /** @test */
-    public function true_is_true()
+    #[Test]
+    public function true_is_true(): void
     {
         $this->assertTrue(true);
     }
